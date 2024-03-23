@@ -1,4 +1,4 @@
-<h1>Product show page</h1>
+<h1>Producos</h1>
 <div class="flex justify-center gap-20 py-10">
   <div class="flex flex-wrap max-w-lg">
     <% @product.images.each do |image| %>
@@ -11,7 +11,7 @@
     <p class="text-2xl mt-4">$<%= (@product.price/100.0).to_s %>
     <p class="text-md py-8"><%= @product.description %></p>
     <div class="my-8">
-      <p class='uppercase text-lg'>Size</p>
+      <p class='uppercase text-lg'>Tamanho</p>
       <% @product.stocks.each do |stock| %>
         <% if stock.amount > 0 %>
           <button data-action="click->products#selectSize" value="<%= stock.size %>" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded hover:bg-gray-300 focus:outline-none focu:ring-2 focus:ring-gray-500 focus:ring-opacity-50">

@@ -1,0 +1,40 @@
+<div class="w-full">
+  <% if @orders_with_product.any? %>
+    <div class="py-2 inline-block min-w-full">
+      <div class="overflow-x-auto">
+        <table class="min-w-full overflow-x-scroll">
+          <thead class="bg-white border-b">
+            <tr>
+              <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                ID do Pedido
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                Data do Pedido
+              </th>
+              <th scope="col" class="text-sm font-medium text-gray-800 px-6 py-4 text-left">
+                Total do Pedido
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @orders_with_product.each do |order| %>
+              <tr class="bg-gray-50 border-b">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                  <%= order.id %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                  <%= order.created_at.strftime("%d/%m/%Y") %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                  $<%= (order.total_price/100.0).to_s %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% else %>
+    <p class="py-2 px-3 bg-gray-100 mb-5 text-gray-500 font-medium rounded-lg inline-block">Nenhum pedido encontrado para este produto.</p>
+  <% end %>
+</div>

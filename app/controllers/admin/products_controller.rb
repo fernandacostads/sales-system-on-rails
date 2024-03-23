@@ -12,6 +12,13 @@ class Admin::ProductsController < AdminController
 
   # GET /admin/products/1 or /admin/products/1.json
   def show
+    @product = Product.find(params[:id])
+    # @orders = @product.orders
+  end
+  
+  def product_orders
+    @product = Product.find(params[:product_id])  #id ou product_id? 
+    @orders_with_product = @product.orders
   end
 
   # GET /admin/products/new
@@ -29,7 +36,7 @@ class Admin::ProductsController < AdminController
 
     respond_to do |format|
       if @admin_product.save
-        format.html { redirect_to admin_product_url(@admin_product), notice: "Product was successfully created." }
+        format.html { redirect_to admin_product_url(@admin_product), notice: "Produto criado com sucesso." }
         format.json { render :show, status: :created, location: @admin_product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +54,7 @@ class Admin::ProductsController < AdminController
           @admin_product.images.attach(image)
         end
       end
-      redirect_to admin_products_path, notice: "Product updated successfully"
+      redirect_to admin_products_path, notice: "Produto atualizado com sucesso."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -58,7 +65,7 @@ class Admin::ProductsController < AdminController
     @admin_product.destroy!
 
     respond_to do |format|
-      format.html { redirect_to admin_products_url, notice: "Product was successfully destroyed." }
+      format.html { redirect_to admin_products_url, notice: "Produto apagado com sucesso." }
       format.json { head :no_content }
     end
   end

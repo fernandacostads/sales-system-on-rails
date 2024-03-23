@@ -11,5 +11,16 @@
       <%= button_to "Apagar produto", admin_product_path(@admin_product), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to "Voltar para produtos", admin_products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+    <h2>Pedidos que contêm este produto:</h2>
+    <% if @admin_product.orders.any? %>
+      <ul>
+        <% @admin_product.orders.each do |order| %>
+          <li><%= link_to "Pedido ##{order.id}", admin_order_path(order) %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Nenhum pedido encontrado para este produto.</p>
+    <% end %>
   </div>
 </div>

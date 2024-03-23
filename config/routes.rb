@@ -2,9 +2,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :orders
     resources :products do
+      member do
+      end
+      get 'orders', to: 'products#product_orders'
       resources :stocks
     end
-      resources :categories
+    resources :categories
   end
   devise_for :admins
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

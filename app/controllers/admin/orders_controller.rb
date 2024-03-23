@@ -26,7 +26,7 @@ class Admin::OrdersController < AdminController
 
     respond_to do |format|
       if @admin_order.save
-        format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully created." }
+        format.html { redirect_to admin_order_url(@admin_order), notice: "Pedido criado com sucesso!" }
         format.json { render :show, status: :created, location: @admin_order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Admin::OrdersController < AdminController
   def update
     respond_to do |format|
       if @admin_order.update(admin_order_params)
-        format.html { redirect_to admin_order_url(@admin_order), notice: "Order was successfully updated." }
+        format.html { redirect_to admin_order_url(@admin_order), notice: "Pedido atualizado com sucesso!" }
         format.json { render :show, status: :ok, location: @admin_order }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Admin::OrdersController < AdminController
     @admin_order.destroy!
 
     respond_to do |format|
-      format.html { redirect_to admin_orders_url, notice: "Order was successfully destroyed." }
+      format.html { redirect_to admin_orders_url, notice: "Pedido apagado com sucesso!" }
       format.json { head :no_content }
     end
   end
@@ -66,6 +66,7 @@ class Admin::OrdersController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled, :total, :address, :number_order, :subtotal, :delivery_fee, :discount, :total_order)
+      params.require(:order).permit(:customer_email, :fulfilled, :total, :address, :number_order, :subtotal, :delivery_fee, :discount, :total_order,
+      order_products_attributes: [:id, :product_id, :size, :quantity, :_destroy])
     end
 end

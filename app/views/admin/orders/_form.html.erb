@@ -21,6 +21,23 @@
     <%= form.check_box :fulfilled, class: "block mt-2 h-5 w-5" %>
   </div>
 
+  <!-- Campos para adicionar produtos ao pedido -->
+  <div class="my-5">
+    <%= form.label :product_id, "Produto" %>
+    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Selecione um produto", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :size, "Tamanho" %>
+    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :quantity, "Quantidade" %>
+    <%= form.number_field :quantity, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <!-- Fim dos campos para adicionar produtos ao pedido -->
+
   <div class="my-5">
     <%= form.label :total, "Total" %>
     <%= form.number_field :total, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
@@ -31,29 +48,32 @@
     <%= form.text_field :address, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-   <div class="my-5">
+  <div class="my-5">
     <%= form.label :number_order, "Número do pedido" %>
     <%= form.text_field :number_order, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-   <div class="my-5">
+  <div class="my-5">
     <%= form.label :subtotal, "Subtotal" %>
     <%= form.number_field :subtotal, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-   <div class="my-5">
+
+  <div class="my-5">
     <%= form.label :delivery_fee, "Taxa de entrega" %>
     <%= form.number_field :delivery_fee, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
- <div class="my-5">
+
+  <div class="my-5">
     <%= form.label :discount, "Desconto" %>
     <%= form.number_field :discount, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-   <div class="my-5">
+
+  <div class="my-5">
     <%= form.label :total_order, "Total" %>
     <%= form.number_field :total_order, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">
-    <%= form.submit "Criar pedido", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Salvar", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
