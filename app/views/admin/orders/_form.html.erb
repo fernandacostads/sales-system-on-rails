@@ -1,0 +1,59 @@
+<%= form_with(model: [:admin, admin_order], class: "contents") do |form| %>
+  <% if admin_order.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(admin_order.errors.count, "error") %> proibiu este admin_order se ser salvo:</h2>
+
+      <ul>
+        <% admin_order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :customer_email, "Email" %>
+    <%= form.text_field :customer_email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :fulfilled, "Atendido" %>
+    <%= form.check_box :fulfilled, class: "block mt-2 h-5 w-5" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :total, "Total" %>
+    <%= form.number_field :total, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :address, "Endereço" %>
+    <%= form.text_field :address, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+   <div class="my-5">
+    <%= form.label :number_order, "Número do pedido" %>
+    <%= form.text_field :number_order, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+   <div class="my-5">
+    <%= form.label :subtotal, "Subtotal" %>
+    <%= form.number_field :subtotal, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+   <div class="my-5">
+    <%= form.label :delivery_fee, "Taxa de entrega" %>
+    <%= form.number_field :delivery_fee, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+ <div class="my-5">
+    <%= form.label :discount, "Desconto" %>
+    <%= form.number_field :discount, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+   <div class="my-5">
+    <%= form.label :total_order, "Total" %>
+    <%= form.number_field :total_order, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit "Criar pedido", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>
