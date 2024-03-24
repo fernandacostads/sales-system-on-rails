@@ -14,6 +14,10 @@ class Admin::OrdersController < AdminController
   # GET /admin/orders/new
   def new
     @admin_order = Order.new
+    # @admin_order.order_products.build
+    Product.all.each do |product|
+      @admin_order.order_products.build(product: product, quantity: 0)
+    end
   end
 
   # GET /admin/orders/1/edit
@@ -23,6 +27,10 @@ class Admin::OrdersController < AdminController
   # POST /admin/orders or /admin/orders.json
   def create
     @admin_order = Order.new(admin_order_params)
+    # @admin_order.calculate_fields
+    set_product_price(@admin_order)
+    puts "Calculando preços dos produtos..."
+    @admin_order.calculate_subtotal
 
     respond_to do |format|
       if @admin_order.save
@@ -35,6 +43,21 @@ class Admin::OrdersController < AdminController
     end
   end
 
+  def get_product_price
+    product = Product.find_by(id: params[:product_id])
+    if product
+      render json: { product_price: product.price }
+    else
+      render json: { error: 'Produto não encontrado' }, status: :not_found
+    end
+  end
+  
+  def set_product_price(order)
+    order.order_products.each do |order_product|
+      product = Product.find_by(id: order_product.product_id)
+      order_product.price = product.price if product.present?
+    end
+  end
   # PATCH/PUT /admin/orders/1 or /admin/orders/1.json
   def update
     respond_to do |format|
@@ -66,7 +89,6 @@ class Admin::OrdersController < AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_order_params
-      params.require(:order).permit(:customer_email, :fulfilled, :total, :address, :number_order, :subtotal, :delivery_fee, :discount, :total_order,
-      order_products_attributes: [:id, :product_id, :size, :quantity, :_destroy])
+      params.require(:order).permit(:customer_email, :fulfilled, :address, :number_order, order_items_attributes: [:id, :product_id, :size, :quantity, :_destroy])
     end
 end

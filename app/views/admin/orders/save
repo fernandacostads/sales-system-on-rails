@@ -1,0 +1,14 @@
+<div class="my-5">
+    <%= form.label :product_id, "Produto" %>
+    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Selecione um produto", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :size, "Especificação" %>
+    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :quantity, "Quantidade" %>
+    <%= form.number_field :quantity, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>

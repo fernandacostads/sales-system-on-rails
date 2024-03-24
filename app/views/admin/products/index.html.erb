@@ -56,8 +56,11 @@
                   <td class="px-4 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     $<%= (p.price/100.0).to_s %>
                   </td>
-                   <td class="px-4 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
+                  <td class="px-4 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
                     <%= link_to "Ver Pedidos",  admin_product_orders_path(product_id: p.id), class: "btn btn-primary" %>
+                     </td>
+                     <td class="px-4 py-4 whitepsace-nowrap tex-sm font-medium text-gray-800">
+                    <%= link_to "Listar Pedidos com esse produto", orders_containing_product_admin_product_path(p.id), class: "btn btn-primary" %>
                   </td>
                 </tr>
               <% end %>

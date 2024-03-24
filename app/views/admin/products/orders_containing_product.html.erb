@@ -1,0 +1,13 @@
+<h1>Orders containing <%= @product.name %></h1>
+
+<% if @orders_containing_product.present? %>
+  <ul>
+    <% @orders_containing_product.each do |order| %>
+      <li>Order Number: <%= order.number_order %>, Customer Email: <%= order.customer_email %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No orders found containing <%= @product.name %>.</p>
+<% end %>
+
+<%= link_to "Back to Product", @product, class: "btn btn-secondary" %>

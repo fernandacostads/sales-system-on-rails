@@ -26,19 +26,20 @@
   
    <p class="my-5">
     <strong class="block font-medium mb-1">Subtotal:</strong>
-    <%= order.subtotal %>
+    <%= order.calculate_subtotal %>
+    <%= puts "Subtotal exibido no formulário: #{@admin_order.calculate_subtotal}" %>
   </p>
  <p class="my-5">
     <strong class="block font-medium mb-1">Taxa de entrega:</strong>
-    <%= order.delivery_fee %>
+    <%= order.calculate_delivery_fee %>
   </p>
    <p class="my-5">
     <strong class="block font-medium mb-1">Valor do desconto:</strong>
-    <%= order.discount %>
+    <%= order.calculate_discount %>
   </p>
    <p class="my-5">
     <strong class="block font-medium mb-1">Total do pedido:</strong>
-    <%= order.total_order %>
+    # <%= order.calculate_total_order %>
  
   <% if order.order_products.any? %>
     <strong class="block font-medium mb-1">Produtos:</strong>

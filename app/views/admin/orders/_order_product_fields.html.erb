@@ -1,0 +1,9 @@
+<div class="item-field">
+  <%= f.collection_select :product_id, Product.all, :id, :name, prompt: "Selecione um produto", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+
+  <%= f.text_field :size, placeholder: "Especificação", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+
+  <%= f.number_field :quantity, placeholder: "Quantidade", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+
+  <%= link_to_remove_fields "Remover", f %>
+</div>

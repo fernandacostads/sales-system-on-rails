@@ -22,27 +22,22 @@
   </div>
 
   <!-- Campos para adicionar produtos ao pedido -->
-  <div class="my-5">
-    <%= form.label :product_id, "Produto" %>
-    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Selecione um produto", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <%= form.fields_for :order_items do |order_item_form| %>
+    <div class="field">
+      <%= order_item_form.label :product_id, "Produto" %>
+      <%= order_item_form.select :product_id, Product.all.collect { |p| [p.name, p.id] }, { include_blank: true } %>
+      <%= order_item_form.text_field :quantity, placeholder: 'Quantidade' %>
+      <span id="product_price_<%= order_item_form.object.object_id %>"></span>
+    </div>
+  <% end %>
 
-  <div class="my-5">
-    <%= form.label :size, "Tamanho" %>
-    <%= form.text_field :size, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :quantity, "Quantidade" %>
-    <%= form.number_field :quantity, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <!-- Botão para adicionar um novo item de pedido -->
+  <div class="actions">
+    <%= link_to "Adicionar Item", new_admin_product_path, remote: true %>
   </div>
   <!-- Fim dos campos para adicionar produtos ao pedido -->
-
-  <div class="my-5">
-    <%= form.label :total, "Total" %>
-    <%= form.number_field :total, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
+  
+  <!-- Campos relacionados ao pedido como um todo -->
   <div class="my-5">
     <%= form.label :address, "Endereço" %>
     <%= form.text_field :address, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
@@ -54,26 +49,45 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :subtotal, "Subtotal" %>
-    <%= form.number_field :subtotal, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :subtotal, "Subtotal: R$ " %>
+    <span id="subtotal_value"></span> 
   </div>
 
-  <div class="my-5">
-    <%= form.label :delivery_fee, "Taxa de entrega" %>
-    <%= form.number_field :delivery_fee, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="my-5"> 
+    <%= form.label :subtotal, "Subtotal: R$ " %> |
+    <%= form.label :delivery_fee, "Taxa de entrega: R$ " %> |
+    <%= form.label :discount, "Desconto (10%): " %> |
+    <%= form.label :total_order, "Total do pedido: R$ " %>
+    </br>
+    <p>** Calculo com base no valor dos itens adicionados ao pedido.</p>
   </div>
-
-  <div class="my-5">
-    <%= form.label :discount, "Desconto" %>
-    <%= form.number_field :discount, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :total_order, "Total" %>
-    <%= form.number_field :total_order, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <!-- Fim dos campos relacionados ao pedido como um todo -->
 
   <div class="inline">
     <%= form.submit "Salvar", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const productSelect = document.getElementById('order_order_items_attributes_0_product_id');
+    const subtotalInput = document.getElementById('subtotal_value');
+
+    if (productSelect && subtotalInput) {
+      productSelect.addEventListener('change', function() {
+        const productId = this.value;
+
+        // Atualize o subtotal com o preço do produto
+        fetch('/admin/orders/get_product_price?product_id=' + productId)
+          .then(response => response.json())
+          .then(data => {
+            const productPrice = data.product_price;
+            subtotalInput.textContent = productPrice.toFixed(2); // Exibe o valor do subtotal com duas casas decimais
+          });
+      });
+    }
+  });
+</script>
+
+</script>
+

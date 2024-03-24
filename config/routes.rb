@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :orders
+    resources :orders do
+      get 'get_product_price', on: :collection
+    end
     resources :products do
       member do
+        get 'orders_containing_product'
       end
       get 'orders', to: 'products#product_orders'
       resources :stocks

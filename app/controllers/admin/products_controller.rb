@@ -21,6 +21,11 @@ class Admin::ProductsController < AdminController
     @orders_with_product = @product.orders
   end
 
+  def orders_containing_product
+    @product = Product.find(params[:product_id])
+    @orders_containing_product = Order.orders_containing_product(@product.id)
+  end
+
   # GET /admin/products/new
   def new
     @admin_product = Product.new
